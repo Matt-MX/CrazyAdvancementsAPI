@@ -1,31 +1,24 @@
 package eu.endercentral.crazy_advancements.advancement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import eu.endercentral.crazy_advancements.NameKey;
 import eu.endercentral.crazy_advancements.advancement.AdvancementDisplay.AdvancementFrame;
 import eu.endercentral.crazy_advancements.advancement.criteria.Criteria;
 import eu.endercentral.crazy_advancements.advancement.progress.AdvancementProgress;
 import eu.endercentral.crazy_advancements.manager.AdvancementManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.TranslatableComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import javax.annotation.Nullable;
+import java.util.*;
 
 /**
  * Represents an Advancement
@@ -444,7 +437,7 @@ public class Advancement {
 	 * Unloads the Visibility Status for a Player<br>
 	 * Should only be run after somebody disconnects to free up RAM
 	 * 
-	 * @param player The UUID of Player to Unload Visibility
+	 * @param uuid The UUID of Player to Unload Visibility
 	 */
 	public void unloadVisibilityStatus(UUID uuid) {
 		savedVisibilityStatus.remove(uuid.toString());
@@ -476,30 +469,28 @@ public class Advancement {
 	 * @param player Player who has recieved the advancement
 	 * @return The Advancement Message as a Base Component
 	 */
-	public BaseComponent getMessage(Player player) {
+	public Component getMessage(Player player) {
 		String translation = "chat.type.advancement." + display.getFrame().name().toLowerCase();
 		boolean challenge = getDisplay().getFrame() == AdvancementFrame.CHALLENGE;
 		
-		TranslatableComponent message = new TranslatableComponent();
-		message.setTranslate(translation);
+		net.kyori.adventure.text.TranslatableComponent message = Component.translatable(translation);
 		
-		TextComponent playerNameText = new TextComponent();
-		BaseComponent[] playerNameComponents = TextComponent.fromLegacyText(player.getDisplayName());
-		playerNameText.setExtra(Arrays.asList(playerNameComponents));
+		TextComponent playerNameText = Component.text().build();
+		TextComponent playerNameComponents = Component.text(player.getDisplayName());
+		playerNameText.append(playerNameComponents);
 		
-		TextComponent title = new TextComponent("[");
-		title.addExtra(display.getTitle().getJson());
-		title.addExtra("]");
-		title.setColor(challenge ? ChatColor.DARK_PURPLE : ChatColor.GREEN);
+		TextComponent title = Component.text("[");
+		title.append(display.getTitle().getJson());
+		title.append(Component.text("]"));
 		
-		TextComponent titleTextComponent = new TextComponent(display.getTitle().getJson());
-		titleTextComponent.setColor(title.getColor());
-		
-		Text titleText = new Text(new BaseComponent[] {titleTextComponent});
-		Text descriptionText = new Text(new BaseComponent[] {display.getDescription().getJson()});
-		title.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, titleText, new Text("\n"), descriptionText));
-		
-		message.setWith(Arrays.asList(playerNameText, title));
+		TextComponent titleTextComponent = (TextComponent) display.getTitle().getJson().asComponent();
+		titleTextComponent.color(title.color());
+
+		TextComponent descriptionText = (TextComponent) display.getDescription().getJson().asComponent();
+		title.hoverEvent(net.kyori.adventure.text.event.HoverEvent.hoverEvent(
+				net.kyori.adventure.text.event.HoverEvent.Action.SHOW_TEXT,
+				titleTextComponent.append(Component.text("\n")).append(descriptionText)
+		));
 		
 		return message;
 	}
@@ -512,10 +503,10 @@ public class Advancement {
 	 * @param player Player who has recieved the advancement
 	 */
 	public void displayMessageToEverybody(Player player) {
-		BaseComponent message = getMessage(player);
+		Component message = getMessage(player);
 		
 		for(Player online : Bukkit.getOnlinePlayers()) {
-			online.spigot().sendMessage(ChatMessageType.CHAT, message);
+			online.sendMessage(message);
 		}
 	}
 	

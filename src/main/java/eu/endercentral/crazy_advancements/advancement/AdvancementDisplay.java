@@ -2,12 +2,13 @@ package eu.endercentral.crazy_advancements.advancement;
 
 import javax.annotation.Nullable;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.endercentral.crazy_advancements.JSONMessage;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.text.TextComponent;
 import net.minecraft.advancements.AdvancementFrameType;
 
 /**
@@ -54,9 +55,9 @@ public class AdvancementDisplay {
 	 */
 	public AdvancementDisplay(Material icon, String title, String description, AdvancementFrame frame, AdvancementVisibility visibility) {
 		this.icon = new ItemStack(icon);
-		TextComponent titleComponent = new TextComponent(title);
+		TextComponent titleComponent = Component.text(title);
 		this.title = new JSONMessage(titleComponent);
-		this.description = new JSONMessage(new TextComponent(description));
+		this.description = new JSONMessage(Component.text(description));
 		this.frame = frame;
 		setVisibility(visibility);
 	}
@@ -90,9 +91,9 @@ public class AdvancementDisplay {
 	 */
 	public AdvancementDisplay(Material icon, String title, String description, AdvancementFrame frame, String backgroundTexture, AdvancementVisibility visibility) {
 		this.icon = new ItemStack(icon);
-		TextComponent titleComponent = new TextComponent(title);
+		TextComponent titleComponent = Component.text(title);
 		this.title = new JSONMessage(titleComponent);
-		this.description = new JSONMessage(new TextComponent(description));
+		this.description = new JSONMessage(Component.text(description));
 		this.frame = frame;
 		this.backgroundTexture = backgroundTexture;
 		setVisibility(visibility);
@@ -126,9 +127,9 @@ public class AdvancementDisplay {
 	 */
 	public AdvancementDisplay(ItemStack icon, String title, String description, AdvancementFrame frame, AdvancementVisibility visibility) {
 		this.icon = icon;
-		TextComponent titleComponent = new TextComponent(title);
+		TextComponent titleComponent = Component.text(title);
 		this.title = new JSONMessage(titleComponent);
-		this.description = new JSONMessage(new TextComponent(description));
+		this.description = new JSONMessage(Component.text(description));
 		this.frame = frame;
 		setVisibility(visibility);
 	}
@@ -162,9 +163,9 @@ public class AdvancementDisplay {
 	 */
 	public AdvancementDisplay(ItemStack icon, String title, String description, AdvancementFrame frame, String backgroundTexture, AdvancementVisibility visibility) {
 		this.icon = icon;
-		TextComponent titleComponent = new TextComponent(title);
+		TextComponent titleComponent = Component.text(title);
 		this.title = new JSONMessage(titleComponent);
-		this.description = new JSONMessage(new TextComponent(description));
+		this.description = new JSONMessage(Component.text(description));
 		this.frame = frame;
 		this.backgroundTexture = backgroundTexture;
 		setVisibility(visibility);
@@ -400,7 +401,7 @@ public class AdvancementDisplay {
 	 * @param title New Title {@link String}
 	 */
 	public void setTitle(String title) {
-		TextComponent titleComponent = new TextComponent(title);
+		TextComponent titleComponent = Component.text(title);
 		this.title = new JSONMessage(titleComponent);
 	}
 	
@@ -419,7 +420,7 @@ public class AdvancementDisplay {
 	 * @param description New Description {@link String}
 	 */
 	public void setDescription(String description) {
-		this.description = new JSONMessage(new TextComponent(description));
+		this.description = new JSONMessage(Component.text(description));
 	}
 	
 	/**

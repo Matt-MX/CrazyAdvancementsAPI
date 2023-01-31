@@ -1,7 +1,8 @@
 package eu.endercentral.crazy_advancements;
 
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.chat.ComponentSerializer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minecraft.network.chat.IChatBaseComponent;
 import net.minecraft.network.chat.IChatBaseComponent.ChatSerializer;
 
@@ -13,14 +14,14 @@ import net.minecraft.network.chat.IChatBaseComponent.ChatSerializer;
  */
 public class JSONMessage {
 	
-	private final BaseComponent json;
+	private final Component json;
 	
 	/**
 	 * Constructor for creating a JSON Message
 	 * 
 	 * @param json A JSON representation of an ingame Message <a href="https://www.spigotmc.org/wiki/the-chat-component-api/">Read More</a>
 	 */
-	public JSONMessage(BaseComponent json) {
+	public JSONMessage(Component json) {
 		this.json = json;
 	}
 	
@@ -29,7 +30,7 @@ public class JSONMessage {
 	 * 
 	 * @return the BaseComponent of an ingame Message
 	 */
-	public BaseComponent getJson() {
+	public Component getJson() {
 		return json;
 	}
 	
@@ -39,12 +40,17 @@ public class JSONMessage {
 	 * @return An {@link IChatBaseComponent} representation of an ingame Message
 	 */
 	public IChatBaseComponent getBaseComponent() {
-		return ChatSerializer.a(ComponentSerializer.toString(json));
+		return ChatSerializer.a(LegacyComponentSerializer.builder()
+				.character('&')
+				.hexCharacter('#')
+				.hexColors()
+				.build()
+				.serialize(json));
 	}
 	
 	@Override
 	public String toString() {
-		return json.toPlainText();
+		return json.toString();
 	}
 	
 }

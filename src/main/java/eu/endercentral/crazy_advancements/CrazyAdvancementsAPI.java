@@ -17,7 +17,7 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -413,8 +413,8 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 		return activeTabs.get(player.getUniqueId().toString());
 	}
 	
-	private final String noPermission = "§cI'm sorry but you do not have permission to perform this command. Please contact the server administrator if you believe that this is an error.";
-	private final String commandIncompatible = "§cThis Command is incompatible with your Arguments!";
+	private final String noPermission = "ï¿½cI'm sorry but you do not have permission to perform this command. Please contact the server administrator if you believe that this is an error.";
+	private final String commandIncompatible = "ï¿½cThis Command is incompatible with your Arguments!";
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -452,12 +452,12 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 									toast.send(player);
 								}
 								
-								sender.sendMessage(players.size() == 1 ? "§aSuccessfully displayed Toast to §b" + players.get(0).getName() + "§a!" : "§aSuccessfully displayed Toast to §e" + players.size() + "§aPlayers!");
+								sender.sendMessage(players.size() == 1 ? "ï¿½aSuccessfully displayed Toast to ï¿½b" + players.get(0).getName() + "ï¿½a!" : "ï¿½aSuccessfully displayed Toast to ï¿½e" + players.size() + "ï¿½aPlayers!");
 							} else {
-								sender.sendMessage("§c'" + args[1] + "' isn't a valid Item Material");
+								sender.sendMessage("ï¿½c'" + args[1] + "' isn't a valid Item Material");
 							}
 						} else {
-							sender.sendMessage(args[0].startsWith("@") ? "§cNo Player found for Selector §e" + args[0] + "§c" : "§cCan't find Player '§e" + args[0] + "§c'");
+							sender.sendMessage(args[0].startsWith("@") ? "ï¿½cNo Player found for Selector ï¿½e" + args[0] + "ï¿½c" : "ï¿½cCan't find Player 'ï¿½e" + args[0] + "ï¿½c'");
 						}
 					} catch(Exception ex) {
 						ex.printStackTrace();
@@ -466,7 +466,7 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 					
 					
 				} else {
-					sender.sendMessage("§cUsage: §r" + cmd.getUsage());
+					sender.sendMessage("ï¿½cUsage: ï¿½r" + cmd.getUsage());
 				}
 			} else {
 				sender.sendMessage(noPermission);
@@ -511,21 +511,21 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 													success = result == GenericResult.CHANGED;
 												}
 												
-												String criteriaString = "§c" + convertedCriteria[0];
+												String criteriaString = "ï¿½c" + convertedCriteria[0];
 												if(convertedCriteria.length > 1) {
 													for(String criteria : Arrays.copyOfRange(convertedCriteria, 1, convertedCriteria.length - 1)) {
-														criteriaString += "§a, §c" + criteria;
+														criteriaString += "ï¿½a, ï¿½c" + criteria;
 													}
-													criteriaString += " §aand §c" + convertedCriteria[convertedCriteria.length - 1];
+													criteriaString += " ï¿½aand ï¿½c" + convertedCriteria[convertedCriteria.length - 1];
 												}
 												
 												if(success) {
 													if(fileAdvancementManager.equals(manager)) {
 														fileAdvancementManager.saveProgress(player, advancement);
 													}
-													sender.sendMessage("§aSuccessfully " + (grant ? "granted" : "revoked") + " Criteria " + criteriaString + " §afor '§e" + advancement.getName() + "§a' " + (grant ? "to" : "from") + " §b" + player.getName());
+													sender.sendMessage("ï¿½aSuccessfully " + (grant ? "granted" : "revoked") + " Criteria " + criteriaString + " ï¿½afor 'ï¿½e" + advancement.getName() + "ï¿½a' " + (grant ? "to" : "from") + " ï¿½b" + player.getName());
 												} else {
-													sender.sendMessage("§cCriteria " + criteriaString + " §afor '§e" + advancement.getName() + "§c' " + (grant ? "is already granted to" : "is already not granted to") + " §b" + player.getName());
+													sender.sendMessage("ï¿½cCriteria " + criteriaString + " ï¿½afor 'ï¿½e" + advancement.getName() + "ï¿½c' " + (grant ? "is already granted to" : "is already not granted to") + " ï¿½b" + player.getName());
 												}
 												
 											} else {
@@ -545,24 +545,24 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 													if(fileAdvancementManager.equals(manager)) {
 														fileAdvancementManager.saveProgress(player, advancement);
 													}
-													sender.sendMessage("§aSuccessfully " + (grant ? "granted" : "revoked") + " Advancement '§e" + advancement.getName() + "§a' " + (grant ? "to" : "from") + " §b" + player.getName());
+													sender.sendMessage("ï¿½aSuccessfully " + (grant ? "granted" : "revoked") + " Advancement 'ï¿½e" + advancement.getName() + "ï¿½a' " + (grant ? "to" : "from") + " ï¿½b" + player.getName());
 												} else {
-													sender.sendMessage("§cAdvancement '§e" + advancement.getName() + "§c' " + (grant ? "is already granted to" : "is already not granted to") + " §b" + player.getName());
+													sender.sendMessage("ï¿½cAdvancement 'ï¿½e" + advancement.getName() + "ï¿½c' " + (grant ? "is already granted to" : "is already not granted to") + " ï¿½b" + player.getName());
 												}
 											}
 											
 										} else {
-											sender.sendMessage("§cAdvancement with Name '§e" + args[2] + "§c' does not exist in '§e" + args[1] + "§c'");
+											sender.sendMessage("ï¿½cAdvancement with Name 'ï¿½e" + args[2] + "ï¿½c' does not exist in 'ï¿½e" + args[1] + "ï¿½c'");
 										}
 									} else {
-										sender.sendMessage("§c'§e" + args[1] + "§c' does not contain Player '§e" + args[0] + "§c'");
+										sender.sendMessage("ï¿½c'ï¿½e" + args[1] + "ï¿½c' does not contain Player 'ï¿½e" + args[0] + "ï¿½c'");
 									}
 								}
 							} else {
-								sender.sendMessage("§cManager with Name '§e" + args[1] + "§c' does not exist");
+								sender.sendMessage("ï¿½cManager with Name 'ï¿½e" + args[1] + "ï¿½c' does not exist");
 							}
 						} else {
-							sender.sendMessage(args[0].startsWith("@") ? "§cNo Player found for Selector §e" + args[0] + "§c" : "§cCan't find Player '§e" + args[0] + "§c'");
+							sender.sendMessage(args[0].startsWith("@") ? "ï¿½cNo Player found for Selector ï¿½e" + args[0] + "ï¿½c" : "ï¿½cCan't find Player 'ï¿½e" + args[0] + "ï¿½c'");
 						}
 						
 					} catch(Exception ex) {
@@ -571,7 +571,7 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 					}
 					
 				} else {
-					sender.sendMessage("§cUsage: §r" + cmd.getUsage());
+					sender.sendMessage("ï¿½cUsage: ï¿½r" + cmd.getUsage());
 				}
 			} else {
 				sender.sendMessage(noPermission);
@@ -612,22 +612,22 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 													fileAdvancementManager.saveProgress(player, advancement);
 												}
 												
-												sender.sendMessage("§aSuccessfully updated Criteria Progress §afor Advancement '§e" + advancement.getName() + "§a' for Player §b" + player.getName());
+												sender.sendMessage("ï¿½aSuccessfully updated Criteria Progress ï¿½afor Advancement 'ï¿½e" + advancement.getName() + "ï¿½a' for Player ï¿½b" + player.getName());
 											}
 											
 										} else {
-											sender.sendMessage("§cAdvancement with Name '§e" + args[2] + "§c' does not exist in '§e" + args[1] + "§c'");
+											sender.sendMessage("ï¿½cAdvancement with Name 'ï¿½e" + args[2] + "ï¿½c' does not exist in 'ï¿½e" + args[1] + "ï¿½c'");
 										}
 										
 									} else {
-										sender.sendMessage("§c'§e" + args[1] + "§c' does not contain Player '§e" + args[0] + "§c'");
+										sender.sendMessage("ï¿½c'ï¿½e" + args[1] + "ï¿½c' does not contain Player 'ï¿½e" + args[0] + "ï¿½c'");
 									}
 								}
 							} else {
-								sender.sendMessage("§cManager with Name '§e" + args[1] + "§c' does not exist");
+								sender.sendMessage("ï¿½cManager with Name 'ï¿½e" + args[1] + "ï¿½c' does not exist");
 							}
 						} else {
-							sender.sendMessage(args[0].startsWith("@") ? "§cNo Player found for Selector §e" + args[0] + "§c" : "§cCan't find Player '§e" + args[0] + "§c'");
+							sender.sendMessage(args[0].startsWith("@") ? "ï¿½cNo Player found for Selector ï¿½e" + args[0] + "ï¿½c" : "ï¿½cCan't find Player 'ï¿½e" + args[0] + "ï¿½c'");
 						}
 						
 					} catch(Exception ex) {
@@ -636,7 +636,7 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 					}
 					
 				} else {
-					sender.sendMessage("§cUsage: §r" + cmd.getUsage());
+					sender.sendMessage("ï¿½cUsage: ï¿½r" + cmd.getUsage());
 				}
 			} else {
 				sender.sendMessage(noPermission);
@@ -650,23 +650,23 @@ public class CrazyAdvancementsAPI extends JavaPlugin implements Listener {
 					switch(args[0].toLowerCase()) {
 					case "all":
 						reload();
-						sender.sendMessage("§aCrazy Advancements API was reloaded");
+						sender.sendMessage("ï¿½aCrazy Advancements API was reloaded");
 						break;
 					case "advancements":
 						reloadFileAdvancements();
-						sender.sendMessage("§aJSON Advancements have been reloaded");
+						sender.sendMessage("ï¿½aJSON Advancements have been reloaded");
 						break;
 					case "items":
 						loadCustomItems();
-						sender.sendMessage("§aCustom Items have been reloaded");
+						sender.sendMessage("ï¿½aCustom Items have been reloaded");
 						break;
 					default:
-						sender.sendMessage("§cInvalid Reload Category '" + args[0] +"'. Valid categories are all, advancements, items");
+						sender.sendMessage("ï¿½cInvalid Reload Category '" + args[0] +"'. Valid categories are all, advancements, items");
 						break;
 					}
 				} else {
 					reload();
-					sender.sendMessage("§aCrazy Advancements API was reloaded");
+					sender.sendMessage("ï¿½aCrazy Advancements API was reloaded");
 				}
 			}
 		}

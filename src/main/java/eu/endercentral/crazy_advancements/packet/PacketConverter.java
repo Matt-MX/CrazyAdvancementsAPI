@@ -2,7 +2,8 @@ package eu.endercentral.crazy_advancements.packet;
 
 import java.util.HashMap;
 
-import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftItemStack;
+import net.kyori.adventure.text.Component;
+import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
 
 import eu.endercentral.crazy_advancements.JSONMessage;
 import eu.endercentral.crazy_advancements.NameKey;
@@ -10,7 +11,7 @@ import eu.endercentral.crazy_advancements.advancement.Advancement;
 import eu.endercentral.crazy_advancements.advancement.AdvancementDisplay;
 import eu.endercentral.crazy_advancements.advancement.AdvancementFlag;
 import eu.endercentral.crazy_advancements.advancement.ToastNotification;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.text.TextComponent;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.resources.MinecraftKey;
 import net.minecraft.world.item.ItemStack;
@@ -87,7 +88,8 @@ public class PacketConverter {
 		
 		MinecraftKey backgroundTexture = null;
 		
-		net.minecraft.advancements.AdvancementDisplay advDisplay = new net.minecraft.advancements.AdvancementDisplay(icon, notification.getMessage().getBaseComponent(), new JSONMessage(new TextComponent("Toast Notification")).getBaseComponent(), backgroundTexture, notification.getFrame().getNMS(), true, false, true);
+		net.minecraft.advancements.AdvancementDisplay advDisplay = new net.minecraft.advancements.AdvancementDisplay(icon, notification.getMessage().getBaseComponent(),
+				new JSONMessage(Component.text("Toast Notification")).getBaseComponent(), backgroundTexture, notification.getFrame().getNMS(), true, false, true);
 		
 		net.minecraft.advancements.Advancement adv = new net.minecraft.advancements.Advancement(ToastNotification.NOTIFICATION_NAME.getMinecraftKey(), null, advDisplay, advancementRewards, ToastNotification.NOTIFICATION_CRITERIA.getCriteria(), ToastNotification.NOTIFICATION_CRITERIA.getRequirements());
 		

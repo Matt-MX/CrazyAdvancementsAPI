@@ -1,5 +1,6 @@
 package eu.endercentral.crazy_advancements.advancement;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,7 +12,7 @@ import eu.endercentral.crazy_advancements.advancement.AdvancementDisplay.Advance
 import eu.endercentral.crazy_advancements.advancement.criteria.Criteria;
 import eu.endercentral.crazy_advancements.advancement.progress.AdvancementProgress;
 import eu.endercentral.crazy_advancements.packet.ToastPacket;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.text.TextComponent;
 
 /**
  * Represents a Toast Notification
@@ -55,7 +56,7 @@ public class ToastNotification {
 	 */
 	public ToastNotification(ItemStack icon, String message, AdvancementFrame frame) {
 		this.icon = icon;
-		this.message = new JSONMessage(new TextComponent(message));
+		this.message = new JSONMessage(Component.text(message));
 		this.frame = frame;
 	}
 	
@@ -81,7 +82,7 @@ public class ToastNotification {
 	 */
 	public ToastNotification(Material icon, String message, AdvancementFrame frame) {
 		this.icon = new ItemStack(icon);
-		this.message = new JSONMessage(new TextComponent(message));
+		this.message = new JSONMessage(Component.text(message));
 		this.frame = frame;
 	}
 	

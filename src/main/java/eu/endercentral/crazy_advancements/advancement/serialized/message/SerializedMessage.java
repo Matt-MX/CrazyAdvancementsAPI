@@ -1,14 +1,12 @@
 package eu.endercentral.crazy_advancements.advancement.serialized.message;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.SelectorComponent;
+import net.kyori.adventure.text.TextComponent;;
+
+import java.awt.*;
 import java.util.List;
 import java.util.Locale;
-
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.KeybindComponent;
-import net.md_5.bungee.api.chat.SelectorComponent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class SerializedMessage {
 	
@@ -77,35 +75,35 @@ public class SerializedMessage {
 		return extra;
 	}
 	
-	public BaseComponent deserialize() {
-		BaseComponent message = new TextComponent("");
+	public Component deserialize() {
+		Component message = Component.text("");
 		if(getText() != null && !getText().isEmpty()) {
-			message = new TextComponent(getText());
+			message = Component.text(getText());
 		} else if(getSelector() != null && !getSelector().isEmpty()) {
-			message = new SelectorComponent(getSelector());
+			message = Component.selector(getSelector());
 		} else if(getKeybind() != null && !getKeybind().isEmpty()) {
-			message = new KeybindComponent(getKeybind());
+			message = Component.keybind(getKeybind());
 		}
-		
-		if(getColor() != null && !getColor().isEmpty()) {
-			message.setColor(ChatColor.of(getColor().toUpperCase(Locale.ROOT)));
-		}
-		
-		message.setBold(isBold());
-		message.setItalic(isItalic());
-		message.setUnderlined(isUnderlined());
 		
 		if(getHoverEvent() != null) {
-			message.setHoverEvent(new net.md_5.bungee.api.chat.HoverEvent(net.md_5.bungee.api.chat.HoverEvent.Action.valueOf(getHoverEvent().getAction().toUpperCase(Locale.ROOT)), new Text(getHoverEvent().getContents())));
+			message.hoverEvent(
+					net.kyori.adventure.text.event.HoverEvent.hoverEvent(
+							net.kyori.adventure.text.event.HoverEvent.Action.SHOW_TEXT,
+							Component.text(getHoverEvent().getContents())
+					)
+			);
 		}
 		
 		if(getClickEvent() != null) {
-			message.setClickEvent(new net.md_5.bungee.api.chat.ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.valueOf(getClickEvent().getAction().toUpperCase(Locale.ROOT)), getClickEvent().getValue()));
+			message.clickEvent(net.kyori.adventure.text.event.ClickEvent.clickEvent(
+					net.kyori.adventure.text.event.ClickEvent.Action.valueOf(getClickEvent().getAction().toUpperCase()),
+					getClickEvent().getValue()
+			));
 		}
 		
 		if(getExtra() != null) {
 			for(SerializedMessage extra : getExtra()) {
-				message.addExtra(extra.deserialize());
+				message.append(extra.deserialize());
 			}
 		}
 		
